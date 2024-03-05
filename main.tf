@@ -27,7 +27,15 @@ resource "aws_wafv2_web_acl" "main" {
     dynamic "block" {
       for_each = var.allow_default_action ? [] : [1]
       # Despite seemingly would want to add default custom_response defintions here, the docs state an empyt configuration block is required. ref: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/wafv2_web_acl#default-action
-      content {}
+      content {
+        dynamic "custom_response" {
+          for_each = var.default_custom_response_key != null ? [1] : []
+          content {
+            custom_response_body_key = var.default_custom_response_key
+            response_code = var.default_custom_response_code
+          }
+        }
+      }
     }
   }
 
