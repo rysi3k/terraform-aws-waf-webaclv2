@@ -96,3 +96,13 @@ variable "custom_response_bodies" {
   description = "Custom response bodies to be referenced on a per rule basis. https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/wafv2_web_acl#custom-response-body"
   default     = []
 }
+
+variable "default_custom_response_code" {
+  type = number
+  default = 403
+}
+
+variable "default_custom_response_key" {
+  type = string
+  default = null
+}
